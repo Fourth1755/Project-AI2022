@@ -105,3 +105,49 @@ function bestMove() {
       return bestScore;
     }
   }
+
+  function normalminimax(board, depth, isMaximizing) { //botnormal
+    let result = checkWinner();
+    if (result !== null) {
+      return scores[result];
+    }
+  
+    if (isMaximizing) {
+      let bestScore = -Infinity;
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+          // Is the spot available?
+          if (board[i][j] == '') {
+            board[i][j] = ai;
+            let score = minimax(board, depth + 1, false);
+            board[i][j] = '';
+            let x = Math.floor((Math.random() * 10) + 1);
+            if(x % 2 == 0)
+            bestScore = max(score, bestScore);
+            else
+            bestScore = min(score, bestScore);
+
+          }
+        }
+      }
+      return bestScore;
+    } else {
+      let bestScore = Infinity;
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+          // Is the spot available?
+          if (board[i][j] == '') {
+            board[i][j] = human;
+            let score = minimax(board, depth + 1, true);
+            board[i][j] = '';
+            let x = Math.floor((Math.random() * 10) + 1);
+            if(x % 2 == 0)
+            bestScore = min(score, bestScore);
+            else
+            bestScore = max(score, bestScore);
+          }
+        }
+      }
+      return bestScore;
+    }
+  }
