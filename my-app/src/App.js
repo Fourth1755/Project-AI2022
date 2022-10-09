@@ -5,11 +5,9 @@ import SideBar from './component/SideBar';
 import ProfileAI from './component/ProfileAI';
 function App() {
   return (
-    <div className='app-container'>
-      <ProfileAI/>
+    <>
       <GameCenter/>
-      <SideBar/>
-    </div>
+    </>
   );
 }
 
