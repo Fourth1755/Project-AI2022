@@ -98,7 +98,7 @@ const GameCenter =()=>{
             board[i][j] = '';
             if (score > bestScore) {
               bestScore = score;
-              console.log("------------>",bestScore)
+              
               move = { i, j };
             }
             
@@ -110,6 +110,12 @@ const GameCenter =()=>{
           title: `You Noob`,
         })
       }
+      if(bestScore==-1){
+        Swal.fire({
+          title: `น่าสนใจดีหนิ`,
+        })
+      }
+      console.log("------------>",bestScore)
       board[move.i][move.j] = ai;
       setMyBoard(myBoard.map((board)=>{
         if(board.row==move.i&&board.col==move.j){
@@ -149,9 +155,6 @@ const GameCenter =()=>{
             }
           }
         }
-        if(bestScore==1){
-          console.log(bestScore)
-        }
         return bestScore;
       } else {
         let bestScore = Infinity;
@@ -165,9 +168,6 @@ const GameCenter =()=>{
               bestScore = Math.min(score, bestScore);
             }
           }
-        }
-        if(bestScore==1){
-          console.log(bestScore)
         }
         return bestScore;
       }
