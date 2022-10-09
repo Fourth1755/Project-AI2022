@@ -94,13 +94,21 @@ const GameCenter =()=>{
           if (board[i][j] == '') {
             board[i][j] = ai;
             let score = minimax(board, 0, false);
+            
             board[i][j] = '';
             if (score > bestScore) {
               bestScore = score;
+              console.log("------------>",bestScore)
               move = { i, j };
             }
+            
           }
         }
+      }
+      if(bestScore==1){
+        Swal.fire({
+          title: `You Noob`,
+        })
       }
       board[move.i][move.j] = ai;
       setMyBoard(myBoard.map((board)=>{
@@ -116,8 +124,8 @@ const GameCenter =()=>{
     }
 
     let scores = {
-      X: 10,
-      O: -10,
+      X: 1,
+      O: -1,
       tie: 0
     };
 
@@ -137,8 +145,12 @@ const GameCenter =()=>{
               let score = minimax(board, depth + 1, false);
               board[i][j] = '';
               bestScore = Math.max(score, bestScore);
+
             }
           }
+        }
+        if(bestScore==1){
+          console.log(bestScore)
         }
         return bestScore;
       } else {
@@ -153,6 +165,9 @@ const GameCenter =()=>{
               bestScore = Math.min(score, bestScore);
             }
           }
+        }
+        if(bestScore==1){
+          console.log(bestScore)
         }
         return bestScore;
       }
