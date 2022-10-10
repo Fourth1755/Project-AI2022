@@ -216,11 +216,28 @@ const GameCenter =(props)=>{
           })
         }
       }
-    useEffect(()=>{
-      Swal.fire({
-        title: 'เลือกว่าใครเล่นก่อน',
-      })
-    },[])
+//ถามใครเริ่มก่อน
+const inputOptions = new Promise((resolve) => {
+  setTimeout(() => {
+    resolve({
+      'O': 'O',
+      'X': 'X',
+    })
+  }, 1000)
+})
+const { value: player } = Swal.fire({
+  title: 'เลือกว่าใครเล่นก่อน',
+  input: 'radio',
+  inputOptions: inputOptions,
+  inputValidator: (value) => {
+    if (!value) {
+      return 'You need to choose something!'
+    }
+  }
+})
+if (player) {
+  Swal.fire({ html: `You selected: ${player}` })
+}
     return(
       <div className='tic-tac-toe-container'>
         <ProfileAI/>
