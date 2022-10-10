@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react'
 const ProfileAI=()=>{
     return(
         <div className='sidebar-container'>
-            <h1>Profile</h1>
+            <h1></h1>
         </div>
     )
 }

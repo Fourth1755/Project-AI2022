@@ -207,11 +207,11 @@ const GameCenter =()=>{
         }
       }
     return(
-      <div className='app-container'>
+      <div className='tic-tac-toe-container'>
         <ProfileAI/>
-        <div>
-            <h1>My XO</h1>
-            <div className='tic-tac-toe-container'>
+        <div className='game-container'>
+            <h1>Tic-Tac-Toe</h1>
+            <div className='tic-tac-toe-game-container'>
                 {myBoard.map((item)=>
                     <div className='tic-tac-toe-box' onClick={()=>mousePressed(item)}>{item.value}</div> 
                 )}

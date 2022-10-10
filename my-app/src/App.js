@@ -3,11 +3,18 @@ import './App.css';
 import GameCenter from './component/GameCenter';
 import SideBar from './component/SideBar';
 import ProfileAI from './component/ProfileAI';
+import TextBox from './component/TextBox';
+import {useEffect, useState} from 'react'
 function App() {
+  const [textbox,setTextbox]=useState("ถ้าคิดว่าเอาชนะได้ก็ลองดู")
+  const onCheckboxClick=(text)=>{
+    setTextbox(text)
+  }
   return (
-    <>
-      <GameCenter/>
-    </>
+      <div className='app-container'>
+      <GameCenter onCheckboxClick={onCheckboxClick}/>
+      <TextBox text={textbox}/>
+    </div>
   );
 }
 

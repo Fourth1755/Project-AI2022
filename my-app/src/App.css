@@ -1,5 +1,9 @@
 .app-container{
+  margin: auto;
+  width: 1000px;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+}
+body{
+  background-color: black;
 }
