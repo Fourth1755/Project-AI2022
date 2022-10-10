@@ -13,18 +13,7 @@ let ai = 'X';
 let human = 'O';
 const GameCenter =(props)=>{
     const MySwal = withReactContent(Swal)
-    const [width,setWidth] =useState(3);
-    function setTable(){
-      for(let i=0;i<3;i++){
-        for(let j=0;i<3;j++){
-          board[i][j]='1'
-        }
-      }
-    }
-    //setTable()
-    console.log(board)
-    //let currentPlayer = human;
-    const [currentPlayer,setCurrentPlayer]=useState(human)
+    const [currentPlayer,setCurrentPlayer]=useState('')
     const [myBoard,setMyBoard]=useState([
         {id :0 ,row: 0, col:0, value:""},
         {id :1 ,row: 0, col:1,value:""},
@@ -103,17 +92,16 @@ const GameCenter =(props)=>{
           if (board[i][j] == '') {
             board[i][j] = ai;
             let score = minimax(board, 0, false);
-            
             board[i][j] = '';
             if (score > bestScore) {
               bestScore = score;
-              
               move = { i, j };
             }
             
           }
         }
       }
+      board[move.i][move.j] = ai;
       if(bestScore==1){
         props.onCheckboxClick("ไอ้กากเอ้ยย")
         // Swal.fire({
@@ -122,21 +110,21 @@ const GameCenter =(props)=>{
       }
       if(bestScore==-1){
         props.onCheckboxClick("น่าสนใจดีหนิ")
-        Swal.fire({
-          title: `น่าสนใจดีหนิ`,
-        })
       }
-      console.log("------------>",bestScore)
-      board[move.i][move.j] = ai;
-      setMyBoard(myBoard.map((board)=>{
-        if(board.row==move.i&&board.col==move.j){
-          return { ... board,value:ai}
-        }if(board.id===item.id){
-          return { ... board,value:human}
-        }else{
-          return {...board}
-        }
+      console.log(board)
+      if(item){
+         setMyBoard(myBoard.map((board)=>{
+          if(board.row==move.i&&board.col==move.j){
+            return { ... board,value:ai}
+          }if(board.id===item.id){
+            return { ... board,value:human}
+          }else{
+            return {...board}
+          }
       }))
+      }else{
+        setMyBoard(myBoard.map((board)=>board.row==move.i&&board.col==move.j?{ ... board,value:ai}:{...board}))
+      }
       setCurrentPlayer(human)
     }
 
@@ -218,6 +206,7 @@ const GameCenter =(props)=>{
           })
         }
       }
+<<<<<<< Updated upstream
 //ถามใครเริ่มก่อน
 const inputOptions = new Promise((resolve) => {
   setTimeout(() => {
@@ -240,6 +229,16 @@ const { value: player } = Swal.fire({
 if (player) {
   Swal.fire({ html: `You selected: ${player}` })
 }
+=======
+    useEffect(()=>{
+
+      Swal.fire({
+        title: 'เลือกว่าใครเล่นก่อน',
+      })
+      setCurrentPlayer(ai)
+      bestMove()
+    },[])
+>>>>>>> Stashed changes
     return(
       <div className='tic-tac-toe-container'>
         <ProfileAI/>
