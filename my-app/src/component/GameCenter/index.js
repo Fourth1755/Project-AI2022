@@ -11,9 +11,18 @@ var board = [
 ];
 let ai = 'X';
 let human = 'O';
-const GameCenter =()=>{
+const GameCenter =(props)=>{
     const MySwal = withReactContent(Swal)
-
+    const [width,setWidth] =useState(3);
+    function setTable(){
+      for(let i=0;i<3;i++){
+        for(let j=0;i<3;j++){
+          board[i][j]='1'
+        }
+      }
+    }
+    //setTable()
+    console.log(board)
     //let currentPlayer = human;
     const [currentPlayer,setCurrentPlayer]=useState(human)
     const [myBoard,setMyBoard]=useState([
@@ -106,9 +115,10 @@ const GameCenter =()=>{
         }
       }
       if(bestScore==1){
-        Swal.fire({
-          title: `You Noob`,
-        })
+        props.onCheckboxClick("ไอ้กากเอ้ยย")
+        // Swal.fire({
+        //   title: `You Noob`,
+        // })
       }
       if(bestScore==-1){
         Swal.fire({
@@ -206,6 +216,11 @@ const GameCenter =()=>{
           })
         }
       }
+    useEffect(()=>{
+      Swal.fire({
+        title: 'เลือกว่าใครเล่นก่อน',
+      })
+    },[])
     return(
       <div className='tic-tac-toe-container'>
         <ProfileAI/>

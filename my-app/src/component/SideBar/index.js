@@ -15,15 +15,7 @@ const SideBar = (props) => {
             <option value="3">HARD</option>
         </select>
       </div>
-      <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Width</label>
-        <select class="form-select" aria-label="Default select example">
-            <option selected>Open this select Width</option>
-            <option value="3">3x3</option>
-            <option value="4">4x4</option>
-            <option value="5">5x5</option>
-      </select>
-      </div>
+
     </div>
   );
 };

@@ -8,6 +8,7 @@ import {useEffect, useState} from 'react'
 function App() {
   const [textbox,setTextbox]=useState("ถ้าคิดว่าเอาชนะได้ก็ลองดู")
   const onCheckboxClick=(text)=>{
+    console.log(text)
     setTextbox(text)
   }
   return (
