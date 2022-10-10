@@ -104,9 +104,6 @@ const GameCenter =(props)=>{
       board[move.i][move.j] = ai;
       if(bestScore==1){
         props.onCheckboxClick("ไอ้กากเอ้ยย")
-        // Swal.fire({
-        //   title: `You Noob`,
-        // })
       }
       if(bestScore==-1){
         props.onCheckboxClick("น่าสนใจดีหนิ")
@@ -206,39 +203,32 @@ const GameCenter =(props)=>{
           })
         }
       }
-<<<<<<< Updated upstream
-//ถามใครเริ่มก่อน
-const inputOptions = new Promise((resolve) => {
-  setTimeout(() => {
-    resolve({
-      'O': 'O',
-      'X': 'X',
-    })
-  }, 1000)
-})
-const { value: player } = Swal.fire({
-  title: 'เลือกว่าใครเล่นก่อน',
-  input: 'radio',
-  inputOptions: inputOptions,
-  inputValidator: (value) => {
-    if (!value) {
-      return 'You need to choose something!'
-    }
-  }
-})
-if (player) {
-  Swal.fire({ html: `You selected: ${player}` })
-}
-=======
+    //ถามใครเริ่มก่อน
     useEffect(()=>{
-
-      Swal.fire({
-        title: 'เลือกว่าใครเล่นก่อน',
-      })
-      setCurrentPlayer(ai)
-      bestMove()
+      const inputOptions ={
+        'O': 'Humen',
+        'X': 'AI',
+      }
+    const { value: player } = Swal.fire({
+      title: 'เลือกว่าใครเล่นก่อน',
+      input: 'radio',
+      inputOptions: inputOptions,
+      inputValidator: (value) => {
+        if (!value) {
+          return 'You need to choose something!'
+        }
+      }
+    }).then((player)=>{
+        if(player.value=='X'){
+          setCurrentPlayer(player.value)
+          bestMove()
+        }else if(player.value=='O'){
+          setCurrentPlayer(player.value)
+        }
+        
+        //Swal.fire({ title: `You selected: ${player.value}` })
+    })
     },[])
->>>>>>> Stashed changes
     return(
       <div className='tic-tac-toe-container'>
         <ProfileAI/>
