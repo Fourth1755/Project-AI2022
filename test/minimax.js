@@ -8,8 +8,8 @@ function bestMove() {
     // AI to make its turn
     let bestScore = -Infinity;
     let move;
-    for (let i = 0; i < 3; i++) {
-      for (let j = 0; j < 3; j++) {
+    for (let i = 0 ; i < 3; i++) {
+      for (let j = 0 ; j < 3; j++) {
         // Is the spot available?
         if (board[i][j] == '') {
           board[i][j] = ai;

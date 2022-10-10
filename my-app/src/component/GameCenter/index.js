@@ -121,6 +121,7 @@ const GameCenter =(props)=>{
         // })
       }
       if(bestScore==-1){
+        props.onCheckboxClick("น่าสนใจดีหนิ")
         Swal.fire({
           title: `น่าสนใจดีหนิ`,
         })
@@ -182,6 +183,7 @@ const GameCenter =(props)=>{
         return bestScore;
       }
     }
+    
       let result = checkWinner();
       if (result != null) {
         if (result == 'tie') {
