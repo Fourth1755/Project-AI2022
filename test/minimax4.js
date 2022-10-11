@@ -82,7 +82,7 @@ function bestMove() {
           // Is the spot available?
           if (board[i][j] == '') {
             board[i][j] = ai;
-            let score = minimax(board, depth + 1, false);
+            let score = noobminimax(board, depth + 1, false);
             board[i][j] = '';
             bestScore = min(score, bestScore);
           }
@@ -96,7 +96,7 @@ function bestMove() {
           // Is the spot available?
           if (board[i][j] == '') {
             board[i][j] = human;
-            let score = minimax(board, depth + 1, true);
+            let score = noobminimax(board, depth + 1, true);
             board[i][j] = '';
             bestScore = max(score, bestScore);
           }

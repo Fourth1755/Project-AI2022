@@ -14,6 +14,7 @@ let human = 'O';
 const GameCenter =(props)=>{
     const MySwal = withReactContent(Swal)
     const [currentPlayer,setCurrentPlayer]=useState('')
+    const [levelAI,setLevelAI]=useState('')
     const [myBoard,setMyBoard]=useState([
         {id :0 ,row: 0, col:0, value:""},
         {id :1 ,row: 0, col:1,value:""},
@@ -32,9 +33,8 @@ const GameCenter =(props)=>{
         if (currentPlayer == human) {
             if (board[i][j] == "") {
                 board[i][j] = human;
-                setCurrentPlayer(ai)
-                bestMove(item)
-                //setMyBoard(myBoard.map((board)=>board.id===item.id?{ ... board,value:human}:{...board}))
+                setCurrentPlayer(ai);
+                bestMove(item,levelAI);
             }
         }
     }
@@ -82,7 +82,7 @@ const GameCenter =(props)=>{
         return winner;
       }
     }
-    function bestMove(item) {
+    function bestMove(item,level) {
       // AI to make its turn
       let bestScore = -Infinity;
       let move;
@@ -91,7 +91,15 @@ const GameCenter =(props)=>{
           // Is the spot available?
           if (board[i][j] == '') {
             board[i][j] = ai;
-            let score = minimax(board, 0, false);
+            let score=0
+            if(level=='1'){
+              score = noobminimax(board, 0, false);
+            }else if(level=='2'){
+              score = normalminimax(board, 0, false);
+            }else if(level=='3'){
+              score = minimax(board, 0, false);
+            }
+            
             board[i][j] = '';
             if (score > bestScore) {
               bestScore = score;
@@ -103,13 +111,12 @@ const GameCenter =(props)=>{
       }
       board[move.i][move.j] = ai;
       if(bestScore==1){
-        props.onCheckboxClick("ไอ้กากเอ้ยย")
+        props.onCheckboxClick("ไม่มีทางที่จะชนะฉันหรอก 5555")
       }
       if(bestScore==-1){
         props.onCheckboxClick("น่าสนใจดีหนิ")
       }
-      console.log(board)
-      if(item){
+      if(item!=='start'){
          setMyBoard(myBoard.map((board)=>{
           if(board.row==move.i&&board.col==move.j){
             return { ... board,value:ai}
@@ -168,13 +175,94 @@ const GameCenter =(props)=>{
         return bestScore;
       }
     }
+    function normalminimax(board, depth, isMaximizing) { //botnormal
+      let result = checkWinner();
+      if (result !== null) {
+        return scores[result];
+      }
+    
+      if (isMaximizing) {
+        let bestScore = -Infinity;
+        for (let i = 0; i < 3; i++) {
+          for (let j = 0; j < 3; j++) {
+            // Is the spot available?
+            if (board[i][j] == '') {
+              board[i][j] = ai;
+              let score = normalminimax(board, depth + 1, false);
+              board[i][j] = '';
+              let x = Math.floor((Math.random() * 10) + 1);
+              if(x % 2 == 0)
+                bestScore = Math.max(score, bestScore);
+              else
+                bestScore = Math.min(score, bestScore);
+  
+            }
+          }
+        }
+        return bestScore;
+      } else {
+        let bestScore = Infinity;
+        for (let i = 0; i < 3; i++) {
+          for (let j = 0; j < 3; j++) {
+            // Is the spot available?
+            if (board[i][j] == '') {
+              board[i][j] = human;
+              let score = normalminimax(board, depth + 1, true);
+              board[i][j] = '';
+              let x = Math.floor((Math.random() * 10) + 1);
+              if(x % 2 == 0)
+                bestScore = Math.min(score, bestScore);
+              else
+                bestScore = Math.max(score, bestScore);
+            }
+          }
+        }
+        return bestScore;
+      }
+    }
+    function noobminimax(board, depth, isMaximizing) { //botกาก
+      let result = checkWinner();
+      if (result !== null) {
+        return scores[result];
+      }
+    
+      if (isMaximizing) {
+        let bestScore = -Infinity;
+        for (let i = 0; i < 3; i++) {
+          for (let j = 0; j < 3; j++) {
+            // Is the spot available?
+            if (board[i][j] == '') {
+              board[i][j] = ai;
+              let score = noobminimax(board, depth + 1, false);
+              board[i][j] = '';
+              bestScore = Math.min(score, bestScore);
+            }
+          }
+        }
+        return bestScore;
+      } else {
+        let bestScore = Infinity;
+        for (let i = 0; i < 3; i++) {
+          for (let j = 0; j < 37; j++) {
+            // Is the spot available?
+            if (board[i][j] == '') {
+              board[i][j] = human;
+              let score = noobminimax(board, depth + 1, true);
+              board[i][j] = '';
+              bestScore = Math.max(score, bestScore);
+            }
+          }
+        }
+        return bestScore;
+      }
+    }
     
       let result = checkWinner();
       if (result != null) {
         if (result == 'tie') {
           Swal.fire({
             title: 'Tie!',
-            text: 'Modal with a custom image.',
+            text: 'เสียดายเสมอซะได้ ลองใหม่อีกครั้งไหม',
             imageUrl: 'https://i.gifer.com/embedded/download/EUsl.gif',
             imageWidth: 400,
             imageHeight: 300,
@@ -194,7 +282,7 @@ const GameCenter =(props)=>{
         }else{
           Swal.fire({
             title: `You Win`,
-            text: 'Modal with a custom image.',
+            text: 'เยี่ยมจริงๆ เยี่ยมจริงๆ เยี่ยมจริงๆ',
             imageUrl: 'https://i.kym-cdn.com/photos/images/newsfeed/000/858/423/fdf.gif',
             imageWidth: 400,
             imageHeight: 200,
@@ -209,25 +297,43 @@ const GameCenter =(props)=>{
         'O': 'Humen',
         'X': 'AI',
       }
-    const { value: player } = Swal.fire({
-      title: 'เลือกว่าใครเล่นก่อน',
-      input: 'radio',
-      inputOptions: inputOptions,
-      inputValidator: (value) => {
-        if (!value) {
-          return 'You need to choose something!'
+      const { value: level } =  Swal.fire({
+        title: 'เลือกระดับความยาก',
+        input: 'select',
+        inputOptions: {'1':'Easy','2':'Normal','3':'Hard'},
+        inputPlaceholder: 'Select level',
+        showCancelButton: true,
+        inputValidator: (value) => {
+          if (!value) {
+            return 'You need to choose something!'
+          }
         }
-      }
-    }).then((player)=>{
-        if(player.value=='X'){
-          setCurrentPlayer(player.value)
-          bestMove()
-        }else if(player.value=='O'){
-          setCurrentPlayer(player.value)
-        }
-        
-        //Swal.fire({ title: `You selected: ${player.value}` })
-    })
+      }).then((level)=>{
+        const { value: player } = Swal.fire({
+          title: 'เลือกว่าใครเล่นก่อน',
+          input: 'radio',
+          inputOptions: inputOptions,
+          inputValidator: (value) => {
+            if (!value) {
+              return 'You need to choose something!'
+            }
+          }
+        }).then((player)=>{
+            if(player.value=='X'){
+              setCurrentPlayer(player.value)
+              if(level.value==1){
+                bestMove('start',1)
+              }else if(level.value==2){
+                bestMove('start',2)
+              }else if(level.value==3){
+                bestMove('start',3)
+              }
+            }else if(player.value=='O'){
+              setCurrentPlayer(player.value)
+            }
+        })
+        setLevelAI(level.value)
+      })
     },[])
     return(
       <div className='tic-tac-toe-container'>
