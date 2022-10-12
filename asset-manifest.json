@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.3c3e6177.css",
-    "main.js": "/static/js/main.8cb08f4a.js",
-    "static/js/787.28cb0dcd.chunk.js": "/static/js/787.28cb0dcd.chunk.js",
-    "static/media/logo.svg": "/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
-    "index.html": "/index.html",
-    "main.3c3e6177.css.map": "/static/css/main.3c3e6177.css.map",
-    "main.8cb08f4a.js.map": "/static/js/main.8cb08f4a.js.map",
-    "787.28cb0dcd.chunk.js.map": "/static/js/787.28cb0dcd.chunk.js.map"
+    "main.css": "/project-ai2022/static/css/main.3c3e6177.css",
+    "main.js": "/project-ai2022/static/js/main.7856ce89.js",
+    "static/js/787.28cb0dcd.chunk.js": "/project-ai2022/static/js/787.28cb0dcd.chunk.js",
+    "static/media/logo.svg": "/project-ai2022/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/project-ai2022/index.html",
+    "main.3c3e6177.css.map": "/project-ai2022/static/css/main.3c3e6177.css.map",
+    "main.7856ce89.js.map": "/project-ai2022/static/js/main.7856ce89.js.map",
+    "787.28cb0dcd.chunk.js.map": "/project-ai2022/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3c3e6177.css",
-    "static/js/main.8cb08f4a.js"
+    "static/js/main.7856ce89.js"
   ]
 }
