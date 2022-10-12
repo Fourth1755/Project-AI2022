@@ -114,6 +114,9 @@ const GameCenter =(props)=>{
         props.onCheckboxClick("ไม่มีทางที่จะชนะฉันหรอก 5555")
       }
       if(bestScore==-1){
+        props.onCheckboxClick("เป็นมนุษย์ที่เก่งจริง")
+      }
+      if(bestScore==0){
         props.onCheckboxClick("น่าสนใจดีหนิ")
       }
       if(item!=='start'){
@@ -302,7 +305,7 @@ const GameCenter =(props)=>{
         input: 'select',
         inputOptions: {'1':'Easy','2':'Normal','3':'Hard'},
         inputPlaceholder: 'Select level',
-        showCancelButton: true,
+        showCancelButton: false,
         inputValidator: (value) => {
           if (!value) {
             return 'You need to choose something!'
